@@ -156,13 +156,13 @@ query : ${query}
 
 
 
-function createContext(history , query){
+function createContext(history ){
 
     const context = []
 
     for(const chat of history){
         context.push({
-            role : chat.from , 
+            role : chat.from == "user" ? "user" : "model" , 
             parts : [
                 {
                     text : chat.message
@@ -194,7 +194,7 @@ async function runDOT(history , query){
 
         
     const chat = generativeModel.startChat({
-        history : createContext(history , query) ,
+        history : createContext(history) ,
 
     })
 

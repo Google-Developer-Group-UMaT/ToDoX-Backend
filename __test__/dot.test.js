@@ -63,3 +63,47 @@ test("Multiple task" , async ()=>{
 
     expect(result).toBeTruthy()
 })
+
+
+test("Conversation history" , async ()=>{
+    const history = []
+
+    const ask_1 = "Create a reminder to setup the storage cleanup microservice"
+    const result_1 = await runDOT(history , ask_1)
+
+    history.push({
+        from : "user" , 
+        message : ask_1
+    } , {
+        from : "dot" , 
+        message : result_1
+    })
+
+    const ask_2 = "For 25th October"
+    const result_2 = await runDOT(history , ask_2)
+
+    history.push({
+        from : "user" , 
+        message : ask_2
+    } , {
+        from : "dot" , 
+        message : result_2
+    })
+
+    const ask_3 = "2025"
+    const result_3 = await runDOT(history , ask_3)
+
+    history.push({
+        from : "user" , 
+        message : ask_3
+    } , {
+        from : "dot" , 
+        message : result_3
+    })
+
+    console.log(history)
+
+
+    expect(history.length).toBeGreaterThan(0)
+
+} , testTimeout = 10000)
