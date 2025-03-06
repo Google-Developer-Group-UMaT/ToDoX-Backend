@@ -133,7 +133,7 @@ const findTaskFunctionDeclaration = {
 
 
 
-function get_dot_prompt(query){
+function getDOTPrompt(query){
 
     return `You are Dot (Do. Organize. Track.), an AI assistant in a to-do app TODOX. Your role is to help users efficiently manage their tasks through natural conversations. You can perform the following actions:  
 - Create new tasks for a specific date.  
@@ -198,7 +198,7 @@ async function runDOT(history , query){
 
     })
 
-    const result = await chat.sendMessage(get_dot_prompt(query))
+    const result = await chat.sendMessage(getDOTPrompt(query))
    
     const calls = result.response.functionCalls()
 
