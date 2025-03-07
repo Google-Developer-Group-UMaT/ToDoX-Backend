@@ -12,6 +12,7 @@ admin.initializeApp({
 
 
 const db = admin.firestore();
+const fadmin = admin
 
 
-module.exports = {db}
+module.exports = {db, fadmin};
