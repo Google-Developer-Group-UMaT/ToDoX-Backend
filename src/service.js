@@ -14,6 +14,7 @@ const generateKeywords = (text) => {
 const addTask = async ({ name, date, userId }) => {
     const keywords = generateKeywords(name);
 
+    console.log(date);
     const task = {
         name,
         date,
@@ -44,6 +45,7 @@ const getTaskByName = async (name, userId) => {
         .where("userId", "==", userId)
         .get();
 
+    console.log(snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
     return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 };
 

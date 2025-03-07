@@ -155,6 +155,6 @@ module.exports = {
     getTasksController,
     getTaskController,
     getTasksByDateController,
-    getTaskByNameController, , 
+    getTaskByNameController, 
     dotController
 };

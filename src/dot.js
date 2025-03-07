@@ -1,7 +1,7 @@
 // D.O.T. – Do. Organize. Track
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const dotenv = require("dotenv");
-const {getTasks, getTask , addTask} = require("./service")
+const {getTaskByName , addTask , getTasksByDate} = require("./service")
 dotenv.config();
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -49,7 +49,17 @@ async function taskBrief(date , user_id = null){
         "Prepare for the client presentation"
     ])
 
-    
+
+    let schedule = await getTasksByDate(user_id , new Date(date))
+
+
+    schedule = schedule.map(task => task.name)
+
+
+
+    return schedule
+
+
 
 
     
@@ -59,6 +69,8 @@ async function taskBrief(date , user_id = null){
 async function findTask(task , user_id = null){
 
 
+
+    console.log(task)
     if(!user_id )  return [
         {
             task : "DevFest conference" ,
@@ -75,6 +87,31 @@ async function findTask(task , user_id = null){
             date : "2023-03-10"
         }
     ]
+
+
+    const tasks = await getTaskByName(task,user_id )
+    console.log( new Date(tasks[0].date.toDate()).toLocaleDateString(undefined , {
+        month : "long" , 
+        day : "numeric" , 
+        year : "numeric"
+    }).toString())
+    return JSON.stringify(tasks.map(task =>{
+        const date_string = new Date(task.date.toDate()).toLocaleDateString(undefined , {
+            month : "long" , 
+            day : "numeric" , 
+            year : "numeric"
+        }).toString()
+        return ({
+        task : task.name , 
+        date : date_string
+
+    })}))
+
+
+
+
+
+
     
 }
 
