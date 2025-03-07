@@ -1,4 +1,4 @@
-const { addTask, updateTask, deleteTask, completeTask, getTasks,getTask } = require("./service");
+const { addTask, updateTask, deleteTask, completeTask, getTasks,getTask,getTasksByDate,getTaskByName } = require("./service");
 const runDOT = require("./dot")
 
 
@@ -91,6 +91,38 @@ const getTaskController = async (req, res, next) => {
 
 
 
+
+const getTasksByDateController = async (req, res, next) => {
+    try {
+        const { date } = req.params;
+        const userId = req.user.uid;
+
+        const data = await getTasksByDate(userId,date);
+        if (!data) {
+            return res.status(404).send("Tasks not found or unauthorized");
+        }
+        res.send(data);
+    } catch (error) {
+        next(error);
+    }
+}
+
+
+const getTaskByNameController = async (req, res, next) => {
+    try {
+        const { name } = req.params;
+        const userId = req.user.uid;
+
+        const data = await getTaskByName(name, userId);
+        if (!data) {
+            return res.status(404).send("Tasks not found or unauthorized");
+        }
+        res.send(data);
+    } catch (error) {
+        next(error);
+    }
+}
+
 const dotController = async (req , res , next) =>{
 
     try{
@@ -121,6 +153,8 @@ module.exports = {
     deleteTaskController,
     completeTaskController,
     getTasksController,
-    getTaskController , 
+    getTaskController,
+    getTasksByDateController,
+    getTaskByNameController, , 
     dotController
 };
