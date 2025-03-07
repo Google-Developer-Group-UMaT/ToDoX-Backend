@@ -83,7 +83,7 @@ const dotController = async (req , res , next) =>{
 
         const response = await runDOT(history , query)
 
-        return res.statu(200).json({
+        return res.status(200).json({
             status : "success" , 
             data : response
         })
