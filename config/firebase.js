@@ -6,6 +6,8 @@ dotenv.config()
 
 const serviceAccount = require(`./${process.env.FIREBASE_KEYS}`);
 
+
+
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });

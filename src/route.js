@@ -8,10 +8,13 @@ const {
     getTaskController,
     dotController
 } = require("./controller");
+
+
 const { validate, taskSchema , dotSchema } = require("./validation");
+const authMiddleware = require("./middleware")
 
 const router = express.Router();
-
+router.use(authMiddleware)
 router.post("/api/tasks", validate(taskSchema), addTaskController);
 router.put("/api/tasks/:id", validate(taskSchema), updateTaskController);
 router.delete("/api/tasks/:id", deleteTaskController);

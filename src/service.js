@@ -9,9 +9,14 @@ const addTask = async ({ name, date, userId }) => {
         userId // Store the user's ID with the task
     };
 
+
+
     const docRef = await db.collection("tasks").add(task);
     const doc = await docRef.get();
     return { id: doc.id, ...doc.data() };
+
+
+    
 };
 
 

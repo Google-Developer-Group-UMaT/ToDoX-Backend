@@ -96,8 +96,10 @@ const dotController = async (req , res , next) =>{
     try{
 
         const {history , query} = req.body
+        const user_id = req.user.uid
 
-        const response = await runDOT(history , query)
+        console.log("uid : " , user_id)
+        const response = await runDOT(history , query , user_id )
 
         return res.status(200).json({
             status : "success" , 
