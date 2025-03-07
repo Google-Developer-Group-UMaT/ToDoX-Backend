@@ -1,4 +1,6 @@
 const { addTask, updateTask, deleteTask, completeTask, getTasks,getTask } = require("./service");
+const runDOT = require("./dot")
+
 
 const addTaskController = async (req, res, next) => {
     try {
@@ -73,11 +75,34 @@ const getTaskController = async (req, res, next) => {
 };
 
 
+const dotController = async (req , res , next) =>{
+
+    try{
+
+        const {history , query} = req.body
+
+        const response = await runDOT(history , query)
+
+        return res.statu(200).json({
+            status : "success" , 
+            data : response
+        })
+
+
+    
+    }
+
+    catch(e){
+        next(e)
+    }
+}
+
 module.exports = {
     addTaskController,
     updateTaskController,
     deleteTaskController,
     completeTaskController,
     getTasksController,
-    getTaskController
+    getTaskController , 
+    dotController
 };

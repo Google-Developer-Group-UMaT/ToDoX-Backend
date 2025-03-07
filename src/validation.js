@@ -14,7 +14,13 @@ const taskSchema = z.object({
     date: z.string().min(1, "Date is required"),
 });
 
+const dotSchema = z.object({
+    history : z.array().default([]),
+    query : z.string().nonempty("Empty query received")
+})
+
 module.exports = {
     validate,
     taskSchema,
+    dotSchema
 };

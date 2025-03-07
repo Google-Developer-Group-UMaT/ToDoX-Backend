@@ -1,44 +1,23 @@
-const express = require('express');
+const express = require("express");
+const {
+    addTaskController,
+    updateTaskController,
+    deleteTaskController,
+    completeTaskController,
+    getTasksController,
+    getTaskController,
+    dotController
+} = require("./controller");
+const { validate, taskSchema , dotSchema } = require("./validation");
+
 const router = express.Router();
-const runDOT = require('./dot');
 
-
-
-
-router.post("/dot" , async function(req , res){
-
-
-
-    try{
-
-
-        const {query , history} = req.body;
-            
-        const response = await runDOT(history ? history : [] , query)
-
-
-        return res.status(200).json({
-            status : "success" , 
-            message : response
-        })
-            
-
-
-
-    }
-
-    catch(e){
-
-        res.status(500).json({
-            message : "An internal server error occured"
-        })
-    }
-
-
-
-
-
-})
-
+router.post("/api/tasks", validate(taskSchema), addTaskController);
+router.put("/api/tasks/:id", validate(taskSchema), updateTaskController);
+router.delete("/api/tasks/:id", deleteTaskController);
+router.patch("/api/tasks/:id/complete", completeTaskController);
+router.get("/api/tasks", getTasksController);
+router.get("/api/tasks/:id", getTaskController);
+router.post("/api/dot" ,validate(dotSchema) , dotController)
 
 module.exports = router;
