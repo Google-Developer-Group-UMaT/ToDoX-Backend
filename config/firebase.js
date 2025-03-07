@@ -1,6 +1,12 @@
 const admin = require("firebase-admin");
+const dotenv = require("dotenv")
 
-const serviceAccount = require("../config/todox-186e9-firebase-adminsdk-fbsvc-1304f80906.json");
+dotenv.config()
+
+
+const serviceAccount = require(`./${process.env.FIREBASE_KEYS}`);
+
+
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -8,6 +14,7 @@ admin.initializeApp({
 
 
 const db = admin.firestore();
+const fadmin = admin
 
 
-module.exports = {db}
+module.exports = {db, fadmin};
